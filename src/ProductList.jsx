@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
+import { addItem,removeItem } from './CartSlice';
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+    cosnt [addedToCart, setAddedToCart]=useState({});
 
     const plantsArray = [
         {
@@ -254,6 +256,11 @@ function ProductList({ onHomeClick }) {
     };
 
     const handleAddToCart=(plant) =>{
+        dispatch(addItem(plant)); 
+        setAddedToCart((prevState) =>({
+            ...prevState,
+            [plant.name]:true,
+        }))
         return null;
     }
     return (
