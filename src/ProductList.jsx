@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
 import { addItem,removeItem } from './CartSlice';
+import { useSelector } from 'react-redux';
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
     const [addedToCart, setAddedToCart]=useState({});
+
+    const cartItems=useSelector((state)=>state.items);
+    
 
     const plantsArray = [
         {
@@ -253,6 +257,11 @@ function ProductList({ onHomeClick }) {
     const handleContinueShopping = (e) => {
         e.preventDefault();
         setShowCart(false);
+    };
+
+    const calculateTotalQuantity=()=>{
+       return cartItems?cartItems.reduce((total,item)=>total+item.quantity,0):0;
+
     };
 
     const handleAddToCart=(plant) =>{
